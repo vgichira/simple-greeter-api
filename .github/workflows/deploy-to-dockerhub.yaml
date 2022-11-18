@@ -27,13 +27,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - id: commit
-        uses: pr-mpt/actions-commit-hash@v2
-        with:
-          commit: "${{ github.event.workflow_run.head_sha }}"
-
+      - uses: tenhaus/get-release-or-tag@v2
+        id: tag
+          
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ steps.commit.outputs.short }}
+          tags: ${{ steps.tag.outputs.tag }}
