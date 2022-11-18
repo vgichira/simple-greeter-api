@@ -11,10 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate tags
-        id: docker_tags
-        uses: dnaka91/action-docker-tags@v0.1
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -27,11 +23,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - uses: tenhaus/get-release-or-tag@v2
+      - name: Generate Tags
+        uses: tenhaus/get-release-or-tag@v2
         id: tag
           
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ steps.tag.outputs.tag }}
+          tags: vgichira/simple-greeter-api:${{ steps.tag.outputs.tag }}
