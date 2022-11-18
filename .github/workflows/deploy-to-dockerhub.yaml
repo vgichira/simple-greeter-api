@@ -22,13 +22,8 @@ jobs:
         with:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
-      - name: Generate Tags
-        uses: tenhaus/get-release-or-tag@v2
-        id: tag
-          
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: vgichira/simple-greeter-api:${{ steps.tag.outputs.tag }}
+          tags: vgichira/simple-greeter-api:${{ github.sha }}
