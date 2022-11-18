@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: vgichira/simple_greeter-api:tags:${{ steps.docker_tags.outputs.tags }}
+          tags: ${{ steps.docker_tags.outputs.tags }}
